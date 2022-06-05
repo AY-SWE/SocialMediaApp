@@ -1,10 +1,12 @@
 import React from 'react'
-import './ProfileSide.css';
+import './ProfileSide.scss';
 import LogoSearch from '../logoSearch/LogoSearch';
+import ProfileCard from '../profileCard/ProfileCard';
 const ProfileSide = () => {
   return (
     <div className='profileSide'>
         <LogoSearch/>
+        <ProfileCard/>
     </div>
   )
 }

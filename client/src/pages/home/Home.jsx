@@ -1,6 +1,6 @@
 import React from 'react'
 import ProfileSide from '../../components/profileSide/ProfileSide';
-import './Home.css';
+import './Home.scss';
 //rafce
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
       <ProfileSide/>
       <div className="postSide">post</div>
       <div className="rightSide">rightSide</div>
-    </div>
+    </div> 
   )
 }
 
