@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(117deg, rgb(107, 234, 234), rgb(36, 214, 214) 70.71%);
+    background: var(--buttonBg);
     border-radius: 5px;
     padding:5px;
     color: white;
