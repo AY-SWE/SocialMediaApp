@@ -1,3 +1,4 @@
+
 .postShare{
     display: flex;
     gap: 1rem;
@@ -6,11 +7,11 @@
     border-radius: 1rem;
 
     img{
-        border-radius: 50%;
         width:3rem;
         height:3rem;
+        border-radius: 50%;
     }
-
+    
     .whatHappening{
         display: flex;
         width: 90%;
@@ -39,10 +40,28 @@
             align-items: center;
             font-size: 12px;
             justify-content: center;
-
             &:hover{
                 cursor: pointer;
             }
+        }
+    }
+
+    .previewImage{
+        position: relative;
+
+        svg{        //this is the cross sign
+            left: 1rem;
+            top: 0.5rem;
+            cursor: pointer;
+            position: absolute;
+
+        }
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
         }
     }
 
