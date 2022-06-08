@@ -1,5 +1,5 @@
 import React from 'react'
-import Cover from '../../img/cover.jpg'
+import Cover from '../../img/cover2.jpg'
 import './ProfileCard.scss'
 
 const ProfileCard = () => {

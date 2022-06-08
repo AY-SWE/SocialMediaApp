@@ -1,0 +1,12 @@
+.trendSide{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .navIcons{
+        margin-top: 1rem;
+        display: flex;
+        gap: 3.5rem;
+        justify-content: center;
+    }
+}
