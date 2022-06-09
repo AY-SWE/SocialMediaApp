@@ -16,6 +16,10 @@ const TrendSide = () => {
         </div>
 
         <TrendCard/>
+
+        <button className='trendSideButton'>
+          Create Trend
+        </button>
     </div>
   )
 }
