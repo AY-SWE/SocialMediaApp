@@ -7,16 +7,9 @@
     overflow-x: clip;
     background: var(--cardColor );  
 
-    .profileLink{
-        font-weight: bold;
-        color: var(--lightBlue);
-        align-self: center;
-        margin-bottom: 1rem;
-        cursor: pointer;
-    }
 }
 
-.profileImage{
+.profileImage2{
     position: relative;
     display:flex;
     flex-direction: column;
@@ -28,10 +21,11 @@
         height: 100%;
     }
     img:nth-of-type(2){
-        width: 6rem;
+        height: 13rem;
+        width: 16rem;
         border-radius: 50%;
         position: absolute;
-        bottom: -1rem;
+        bottom: 0rem;
         box-shadow: var(--profileShadow);
     }
 }

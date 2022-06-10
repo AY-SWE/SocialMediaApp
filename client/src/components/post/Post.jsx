@@ -12,10 +12,10 @@ const Post = ({data}) => {
       <div className="postReact">
           <img src= {data.liked? Heart: NotLike} alt=""/>
           <img src= {Comment} alt=""/>
-          <img src= {Share} style= {{outline: "red"}} alt=""/>
+          <img src= {Share} alt=""/>
       </div>
 
-      <span>{data.likes} Likes</span>
+      <span style={{color:"black", fontSize:"13px"}}>{data.likes} Likes</span>
       <div className="details">
         <span><b>{data.name}</b></span>
         <span> {data.desc}</span>
