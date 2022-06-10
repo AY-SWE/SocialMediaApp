@@ -1,0 +1,21 @@
+.auth{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    gap: 4rem;
+
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: center ;
+    }
+
+    .authLeft{
+        img{
+            max-height: 9rem;
+        }
+        gap: 2rem;
+    }
+}

@@ -2,7 +2,11 @@
 .logoSearch{
     gap: 0.75rem;
     display:flex;
-}
+
+    img{
+       width: 75%;
+        max-height: 3.3rem;
+    }
 
 .search{
     display:flex;
@@ -30,4 +34,5 @@
         cursor: pointer;
     }
       
+}
 }
