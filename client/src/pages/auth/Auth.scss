@@ -13,9 +13,72 @@
     }
 
     .authLeft{
+        gap: 2rem;
         img{
             max-height: 9rem;
         }
-        gap: 2rem;
+        .webName{
+            flex-direction: column;
+        }
+        h1{
+            font-size: 4rem;
+          
+            /* Create the gradient. */
+            background-image: var(--buttonBg);
+            
+            /* Set the background size and repeat properties. */
+            background-size: 100%;
+            background-repeat: repeat;
+          
+            /* Use the text as a mask for the background. */
+            /* This will show the gradient as a text color rather than element bg. */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+        }
+        h6{
+            font-size: 1rem;
+        }
+
+    }
+
+    .authRight{
+        .signUpForm{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            background-color: var(--cardColor);
+            border-radius: 1rem;
+            padding: 2rem;
+        
+
+            h3{
+                font-size: 25px;
+            }
+            
+            div{
+                display: flex;
+                gap: .5rem;
+                height: 2rem;
+                width: 100%;
+                
+                span{
+                    font-size: 13px;
+                }
+                .signUpInput{
+                    border: none;
+                    outline: none;
+                    background-color: var(--inputColor);
+                    border-radius: 9px;
+                    padding: 20px;
+                    flex:1;
+                    font-size: 15px;
+                }
+            }
+            
+        }
     }
 }

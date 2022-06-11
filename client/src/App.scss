@@ -7,6 +7,7 @@
   --hrColor: #cfcdcd;
   --cardColor: rgba(255, 255, 255, 0.64);
   --buttonBg: linear-gradient(98.63deg, #20cfea 0%, #16adc4 100%);
+  --signUpCard: linear-gradient(98.63deg, #e8b829 0%, #e38913 100%);
   --inputColor: rgba(40, 52, 62, 0.07);
   --photo: #37c843;
   --video: #ca8018;
@@ -73,6 +74,13 @@ button{
       width: 80%;
       align-self: center;
       margin-top: 70px;
+    }
+
+    &.signUpButton{
+      padding: 10px;
+      width: 50%;
+      align-self: center;
+      font-size: 20px;
     }
 }
 

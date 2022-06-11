@@ -5,7 +5,7 @@
 
     img{
        width: 75%;
-        max-height: 3.3rem;
+        max-height: 3rem;
     }
 
 .search{
@@ -13,7 +13,6 @@
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 5px;
-
     input{
         background-color: transparent;
         border: none;
@@ -29,6 +28,7 @@
     border-radius: 5px;
     padding:5px;
     color: white;
+
 
     &:hover{
         cursor: pointer;
