@@ -26,6 +26,10 @@ app.use(express.json())     //in express server, it does not accept json files b
 const authRoute = require('./routes/authRoute')
 app.use('/auth', authRoute)
 
+const userRoute = require('./routes/userRoute')
+app.use('/user', userRoute)
+
+
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
