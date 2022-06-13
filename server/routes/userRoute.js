@@ -6,10 +6,12 @@ const userController = require("../controllers/userController");
 
 //UPDATE
 router.put("/:id", userController.updateUser)
-// //DELETE
+//DELETE
 router.delete("/:id", userController.deleteUser)
-// //GET
+//GET
 router.get("/find/:id", userController.getUser)          //no need for auth.verify because everyone should be able to find
+//FOLLOW A USER
+router.put("/follow/:id", userController.followUser) 
 // //GET ALL
 // router.get("/", auth.verify, userController.getAllUser) 
 // //GET USER STATS

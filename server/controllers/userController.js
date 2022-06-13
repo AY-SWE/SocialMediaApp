@@ -75,6 +75,30 @@ getUser = async (req, res) => {
     } 
 }
 
+followUser = async (req, res) => {
+    const {currentUserId} = req.body;   
+    if(currentUserId === req.params.id){        //no one should be able to follow themselves
+        res.status(403).json({errorMessage: "User cannot follow him/herself"});
+    }
+    else{
+        try{
+            const followUser = await User.findById(req.params.id); //followUser is whom we want to follow
+            const followingUser = await User.findById(currentUserId);       //the one who is performing the following request to followUser
+            if(!followingUser.followings.includes(req.params.id)){
+                await followingUser.updateOne({$push: {followings: req.params.id}})
+                await followUser.updateOne({$push: {followers: currentUserId}})
+                res.status(200).json("desired User has been followed: " + followUser.username);
+            }
+            else{
+                res.status(403).json({errorMessage: "You are already following the specified user"});
+            }
+        }
+        catch(err){
+            res.status(500).send(err);
+        }
+    }
+}
+
 getAllUser = async (req, res) => {
     const query = req.query.new;
     if(req.user.isAdmin){
@@ -98,4 +122,5 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUser,
+    followUser
 };
