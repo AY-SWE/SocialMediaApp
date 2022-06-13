@@ -19,6 +19,8 @@ const UserSchema = new Schema(
         worksAt: { type: String, default: "" },
         relationship: { type: String, default: "" },
         isAdmin: { type: Boolean, default: false },
+        followers:[],
+        followings:[]
     },
     { timestamps: true },
 )
