@@ -5,16 +5,15 @@ const postController = require("../controllers/postController.js");
 
 //CREATE
 router.post("/", postController.createPost)
-// //UPDATE
-// router.put("/:id", auth.verify, movieController.updateMovie)
-// //DELETE
-// router.delete("/:id", auth.verify, movieController.deleteMovie)
-
-// //GET
-// router.get("/find/:id", movieController.getMovie)          //no need for auth.verify because everyone should be able to find
-// //GET RANDOM
-// router.get("/findRandom", auth.verify, movieController.getMovieRandom) 
-// //GET ALL
-// router.get("/", auth.verify, movieController.getAllMovie) 
+//UPDATE
+router.put("/:id", postController.updatePost)
+//DELETE
+router.delete("/:id", postController.deletePost)
+//GET
+router.get("/find/:id", postController.getPost)          //no need for auth.verify because everyone should be able to find
+//LIKE/DISLIKE POST
+router.put("/likeDislike/:id", postController.likeDislikePost)
+//GET TIMELINE POST
+router.put("/findTimeLine/:id", postController.getTimelinePost)
 
 module.exports = router;

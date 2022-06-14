@@ -32,126 +32,105 @@ createPost = async (req, res) => {
         }
 }
 
-updateMovie = async (req, res) => {
+updatePost = async (req, res)  => {
     const body = req.body;
     if (!body) {
         return res.status(400).json({
-            errorMessage: 'You must provide a body to update movie',
+            success: false,
+            error: 'You must provide a body to update post',
         })
     }
-
-    if(req.user.isAdmin){
+    const {userId} = req.body;
+  
         try{
-            const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}); //update first, then return new movie 
-            console.log("movie updated: " + updatedMovie._id);
-            res.status(200).json(updatedMovie); 
-        }
-        catch (err) {
-            console.error(err);
-            res.status(500).send();
-        }
-
-    }
-    else{
-        res.status(403).json({errorMessage: "You're not allowed to update movies"});
-    }
-}
-
-deleteMovie = async (req, res) => {
-    console.log("delete movie with id: " + JSON.stringify(req.params.id));
-    Movie.findById({ _id: req.params.id }, (err, movie) => {
-        console.log("Movie found: " + JSON.stringify(movie));
-        if (err) {
-            return res.status(404).json({
-                errorMessage: 'Movie not found!',
-            })
-        }
-
-        async function asyncCheckIsAdmin(){
-            if(req.user.isAdmin){
-                try{
-                    const deletedMovie = await Movie.findByIdAndDelete(req.params.id); 
-                    console.log("SUCCESS deleted movie");
-                    res.status(200).json(deletedMovie); 
-                }
-                catch (err) {
-                    console.error(err);
-                    res.status(500).send();
-                }
-        
+            const updatedPost = await Post.findById(req.params.id); 
+            if(userId === updatedPost.userId){
+                await updatedPost.updateOne({$set: req.body}, {new: true})
+                //console.log("SUCCESS updated user");
+                res.status(200).json(updatedPost);
             }
             else{
-                console.log("incorrect user!");
-                res.status(403).json({errorMessage: "You're not allowed to delete movie"});
+                res.status(403).json({errorMessage: "Only the owner can update the post"});
             }
         }
-        asyncCheckIsAdmin();
-    })
-     
-}
-
-getMovie = async (req, res) => {
-    try{
-        const getMovie = await Movie.findById(req.params.id); 
-        console.log("SUCCESS found movie");
-        res.status(200).json("movie has been found: " + {getMovie});
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).send();
-    } 
-}
-
-getMovieRandom = async (req, res) => {          // get random movie for the big background screen
-    const type = req.query.type;        // example: in movieRoute, ("/getRandom?type=series") will return series
-
-    let movie;
-    try{
-        if(type === "series"){
-            movie = await Movie.aggregate([
-                {$match: {isSeries: true}},
-                {$sample: {size: 1}}                // find all series, then give us 1 sample 
-            ])
+        catch(err){
+            res.status(500).send({errorMessage: req.params.id});
         }
-        else{
-            movie = await Movie.aggregate([
-                {$match: {isSeries: false}},
-                {$sample: {size: 1}}                // find all movies, then give us 1 sample 
-            ])
-        }
-        console.log("SUCCESS found random movie");
-        res.status(200).json(movie);
-    }
-    catch(err){
-        console.error(err);
-        res.status(500).send();
-    } 
 }
 
-getAllMovie = async (req, res) => {
-    if(req.user.isAdmin){
+deletePost = async (req, res) => {
+    const {userId} = req.body;
         try{
-            const allMovie =await Movie.find(); 
-            console.log("SUCCESS get all movies ");
-            res.status(200).json(allMovie.reverse());       // return most recent created movies
+            const deletedPost = await Post.findById(req.params.id); 
+            if(userId === deletedPost.userId){
+                await deletedPost.deleteOne()
+                res.status(200).json(deletedPost);
+            }
+            else{
+                res.status(403).json({errorMessage: "Only the owner can delete the post"});
+            }
         }
         catch(err){
-            console.error(err);
-            res.status(500).send();
+            res.status(500).send(err);
         }
-    }
-    else{
-        res.status(403).json({errorMessage: "You're not allowed to see all users"});
-    }
+    
 }
 
+getPost = async (req, res) => {
+    try{ 
+        const getPost = await Post.findById(req.params.id); 
+        console.log("SUCCESS found post");
 
+        res.status(200).json(getPost);
+    }
+    catch(err){
+        //console.error(err);
+        res.status(500).send({errorMessage: "post does not exist"});
+    } 
+}
+
+likeDislikePost = async (req, res) => {
+    const {userId} = req.body;
+    try{
+        const likePost = await Post.findById(req.params.id); 
+        if(!likePost.likes.includes(userId)){       //user is not in the post's like array, so user is able to like it
+            await likePost.updateOne({$push: {likes: userId}})
+            res.status(200).json("post LIKED " + likePost._id);
+        }
+        else{
+            await likePost.updateOne({$pull: {likes: userId}})
+            res.status(200).json("post DISLIKED " + likePost._id);
+        }
+    }
+    catch(err){
+        res.status(500).send(err);
+    } 
+}
+
+//should return posts by users and posts of all those that user has followed
+getTimelinePost = async (req, res) => {     
+    const {userId} = req.body;
+    try{
+        const likePost = await Post.findById(req.params.id); 
+        if(!likePost.likes.includes(userId)){       //user is not in the post's like array, so user is able to like it
+            await likePost.updateOne({$push: {likes: userId}})
+            res.status(200).json("post LIKED " + likePost._id);
+        }
+        else{
+            await likePost.updateOne({$pull: {likes: userId}})
+            res.status(200).json("post DISLIKED " + likePost._id);
+        }
+    }
+    catch(err){
+        res.status(500).send(err);
+    } 
+}
 
 module.exports = {
     createPost,
-    updateMovie,
-    deleteMovie,
-    getMovie,
-    getMovieRandom,
-    getAllMovie
+    updatePost,
+    deletePost,
+    getPost,
+    likeDislikePost,
+    getTimelinePost
 };

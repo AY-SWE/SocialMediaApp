@@ -44,7 +44,7 @@ registerUser = async (req, res) => {
 loginUser = async (req, res) => {
   try{
     const { username, password} = req.body;
-    const existingUser = await User.findOne({ username: username  });
+    const existingUser = await User.findOne({ username: username });
     if (!existingUser) {
       return res
           .status(401)
