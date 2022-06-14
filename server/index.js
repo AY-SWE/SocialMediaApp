@@ -29,6 +29,9 @@ app.use('/auth', authRoute)
 const userRoute = require('./routes/userRoute')
 app.use('/user', userRoute)
 
+const postRoute = require('./routes/postRoute')
+app.use('/post', postRoute)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
