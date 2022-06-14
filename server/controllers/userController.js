@@ -117,10 +117,35 @@ getAllUser = async (req, res) => {
     }
 }
 
+unfollowUser = async (req, res) => {
+    const {currentUserId} = req.body;   
+    if(currentUserId === req.params.id){        //no one should be able to unfollow themselves
+        res.status(403).json({errorMessage: "User cannot unfollow him/herself"});
+    }
+    else{
+        try{
+            const unfollowUser = await User.findById(req.params.id); //unfollowUser is whom we want to unfollow
+            const unfollowingUser = await User.findById(currentUserId);       //the one who is performing the unfollowing request to unfollowUser
+            if(unfollowingUser.followings.includes(req.params.id)){     //if user's following array contains the desired user to unfollow, then proceed
+                await unfollowingUser.updateOne({$pull: {followings: req.params.id}})
+                await unfollowUser.updateOne({$pull: {followers: currentUserId}})
+                res.status(200).json("desired User has been UNfollowed: " + unfollowUser.username);
+            }
+            else{
+                res.status(403).json({errorMessage: "The specified user is not followed by you to begin with"});
+            }
+        }
+        catch(err){
+            res.status(500).send(err);
+        }
+    }
+}
+
 module.exports = {
     getUser,
     updateUser,
     deleteUser,
     getAllUser,
-    followUser
+    followUser,
+    unfollowUser
 };

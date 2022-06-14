@@ -12,6 +12,8 @@ router.delete("/:id", userController.deleteUser)
 router.get("/find/:id", userController.getUser)          //no need for auth.verify because everyone should be able to find
 //FOLLOW A USER
 router.put("/follow/:id", userController.followUser) 
+//UNFOLLOW A USER
+router.put("/unfollow/:id", userController.unfollowUser) 
 // //GET ALL
 // router.get("/", auth.verify, userController.getAllUser) 
 // //GET USER STATS
