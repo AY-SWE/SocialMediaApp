@@ -7,6 +7,8 @@
 */
 
 const Post = require('../models/Post')
+const User = require('../models/User')
+const mongoose = require('mongoose')
 //const bcrypt = require("bcryptjs");
 //const auth = require("../auth");
 
@@ -108,20 +110,33 @@ likeDislikePost = async (req, res) => {
 }
 
 //should return posts by users and posts of all those that user has followed
-getTimelinePost = async (req, res) => {     
-    const {userId} = req.body;
+getTimelinePost = async (req, res) => {  
     try{
-        const likePost = await Post.findById(req.params.id); 
-        if(!likePost.likes.includes(userId)){       //user is not in the post's like array, so user is able to like it
-            await likePost.updateOne({$push: {likes: userId}})
-            res.status(200).json("post LIKED " + likePost._id);
+        const currentUserPosts = await Post.find({userId: req.params.id}); //returns all posts that has same userId as the request's userId
+       const followingsPosts = await User.aggregate([
+        {
+            $match:{_id : new mongoose.Types.ObjectId(req.params.id)}
+        },
+        {                                                                   //lookup: query is used on User model, and we want to lookup on post model
+            $lookup:{
+                from : "posts",      //the name of the collection in your database
+                localField: "followings",
+                foreignField: "userId",
+                as: "followingsPosts"
+            }
+        },
+        {
+            $project:{
+                followingsPosts: 1,
+                _id: 0      //by default aggregate returns _id of the field, we dont want it so make it 0
+            }
         }
-        else{
-            await likePost.updateOne({$pull: {likes: userId}})
-            res.status(200).json("post DISLIKED " + likePost._id);
-        }
+       ])
+       res.status(200).json(currentUserPosts.concat(...followingsPosts[0].followingsPosts).sort((a,b)=> {return (b.createdAt-a.createdAt)}));       //this notation returns the posts all in one simple array
     }
+    
     catch(err){
+        console.log(err);
         res.status(500).send(err);
     } 
 }

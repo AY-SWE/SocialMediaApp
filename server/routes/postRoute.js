@@ -14,6 +14,6 @@ router.get("/find/:id", postController.getPost)          //no need for auth.veri
 //LIKE/DISLIKE POST
 router.put("/likeDislike/:id", postController.likeDislikePost)
 //GET TIMELINE POST
-router.put("/findTimeLine/:id", postController.getTimelinePost)
+router.get("/findTimeLine/:id", postController.getTimelinePost)
 
 module.exports = router;
