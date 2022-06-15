@@ -23,4 +23,5 @@ const api = axios.create({
 // WE NEED TO PUT THINGS INTO THE DATABASE OR IF WE HAVE SOME
 // CUSTOM FILTERS FOR QUERIES
 export const loginUser = (formData) => api.post('/auth/login',formData)
+export const registerUser = (formData) => api.post('/auth/register',formData)
 

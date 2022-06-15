@@ -49,6 +49,11 @@ button{
     border: 2px solid var(--lightBlue);
   }
 
+  &:disabled{
+    pointer-events: none;   //area becomes unclickable
+    background: silver;
+  }
+
   &.button-postShare{
             padding: 5px;
             padding-left: 20px;

@@ -13,20 +13,20 @@ const bcrypt = require('bcryptjs')
 //Register a new User
 registerUser = async (req, res) => {
   try{
-      const { username, password, firstname, lastname } =
-    req.body;
-
+    const {username} = req.body
     const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
-  const passwordHash = await bcrypt.hash(password, salt);
+  const passwordHash = await bcrypt.hash(req.body.password, salt);
+  req.body.password = passwordHash;
 
-      const newUser = new User({
-          firstname,
-          lastname,
-          password: passwordHash,
-          username,
-        });
-        
+  const existingUser = await User.findOne({ username: username });
+    if (existingUser) {
+      return res.status(400).json({
+              success: false,
+              errorMessage: "An account with this username already exists."
+          })
+    }
+      const newUser = new User(req.body);
       const savedUser = await newUser.save();     //mongoose will save user into our db
     
     res.status(200).json({
