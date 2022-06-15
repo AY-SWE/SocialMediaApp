@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
 import "./Auth.scss"
 import Logo from '../../img/cameraLogo.png'
+import {useDispatch} from 'react-redux'
+import { loginUser } from '../../actions/authActions';
 const Auth = () => {
   const [isSignUp, setisSignUp] = useState(true);    //if false, render login page, isSignUp means (want to sign up)
+  const dispatch = useDispatch();
+
   const[data,setData] = useState({
     firstName:"",
     lastName:"",
@@ -21,8 +25,10 @@ const Auth = () => {
     e.preventDefault();
 
     if(isSignUp){
-      if(data.password !== data.confirmPassword)
-        setConfirmPassword(false)
+      data.password === data.confirmPassword? dispatch(registerUser(data)): setConfirmPassword(false);
+    } 
+    else{
+      dispatch(loginUser(data));      //dispatch dispatches an loginUser function from authActions folder
     }
   }
 
