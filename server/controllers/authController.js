@@ -6,7 +6,7 @@
     
     @author Andy Yang
 */
-
+const auth = require('../auth')
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 
@@ -28,10 +28,15 @@ registerUser = async (req, res) => {
     }
       const newUser = new User(req.body);
       const savedUser = await newUser.save();     //mongoose will save user into our db
+
+    // LOGIN THE USER
+    const token = auth.signToken(savedUser.username, savedUser._id);
+    //console.log("token:" + token);
     
     res.status(200).json({
         success: true,
-        user: {savedUser}
+        user: {savedUser},
+        token:{token}
       })
   }
   catch (err) {
@@ -54,7 +59,7 @@ loginUser = async (req, res) => {
     }
     const passwordCorrect = await bcrypt.compare(
       password,
-      existingUser.password
+      existingUser.password 
     );
 
     if (!passwordCorrect) {
@@ -63,8 +68,16 @@ loginUser = async (req, res) => {
         errorMessage: "Wrong password",
       });
     }
+    else{
+      // LOGIN THE USER
+      const token = auth.signToken(existingUser.username, existingUser._id);  
+      res.status(200).json({
+        success: true,
+        user: {existingUser},
+        token:{token}
+      })
+    }
 
-    res.status(200).json({existingUser})
   }
   catch (err) {
       console.error(err);
