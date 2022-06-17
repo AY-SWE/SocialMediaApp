@@ -6,9 +6,10 @@ import AddLocationOutlinedIcon from '@mui/icons-material/AddLocationOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch,useSelector } from 'react-redux';
-import { uploadImage } from '../../actions/uploadActions';
+import { uploadImage, uploadPost } from '../../actions/uploadActions';
 
 const PostShare = () => {
+    const loading = useSelector((state)=> state.postReducer.uploading)
     const dispatch = useDispatch();
     //const user = useSelector((state)=>{console.log(state.authReducer.authData.user.existingUser._id);return state.authReducer.authData;});    problem is too nested, that's why _id was undefined
     const user = useSelector((state)=> state.authReducer.authData.user.existingUser);  
@@ -34,7 +35,8 @@ const handleShare = (e) => {
         data.append("name", filename)
         data.append("file", image)
         newPost.img = filename      //remember, Post model's img is of type String
-        console.log(newPost)
+        console.log("upload image below:")
+        console.log(data)
         try{
             dispatch(uploadImage(data))
         }
@@ -42,6 +44,7 @@ const handleShare = (e) => {
             console.log(err)
         }
     }
+    dispatch(uploadPost(newPost))      //upload post contains the post's descrip,img,etc
 }
 
   return (
@@ -75,8 +78,8 @@ const handleShare = (e) => {
                     Schedule
                 </div>
 
-                <button className="button-postShare" onClick={handleShare}>
-                    Share
+                <button className="button-postShare" onClick={handleShare} disabled={loading}>
+                    {loading? "Uploading...": "Share"}
                 </button>
 
                 <div style={{display:"none"}}>
