@@ -23,6 +23,11 @@ const PostShare = () => {
         }
     };
 
+    const resetAfterShare = ()=>{
+        setImage(null);
+        description.current.value=""
+    }
+
 const handleShare = (e) => {
     e.preventDefault();
     const newPost = {
@@ -45,6 +50,7 @@ const handleShare = (e) => {
         }
     }
     dispatch(uploadPost(newPost))      //upload post contains the post's descrip,img,etc
+    resetAfterShare()
 }
 
   return (
