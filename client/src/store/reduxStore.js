@@ -21,6 +21,7 @@ import {
         if(serializedStore === null) return undefined;
         return JSON.parse(serializedStore);
     } catch(e) {
+        console.log("EEEEEEEEEEEEEEEEE")
         console.log(e);
         return undefined;
     }

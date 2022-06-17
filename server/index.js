@@ -37,6 +37,9 @@ app.use('/user', userRoute)
 const postRoute = require('./routes/postRoute')
 app.use('/post', postRoute)
 
+const uploadRoute = require('./routes/uploadRoute')
+app.use('/upload', uploadRoute)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
