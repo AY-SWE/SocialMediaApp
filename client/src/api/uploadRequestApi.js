@@ -5,4 +5,4 @@ const api = axios.create({
 })
 
 
-export const uploadImage = (formData) => api.post('/upload/',formData)
+export const uploadImage = (formData) => api.post('/upload',formData)

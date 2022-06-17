@@ -14,7 +14,6 @@ const storage = multer.diskStorage({        //public folder in server
 
 const upload = multer({storage: storage})
 
-// //REGISTER
 router.post("/", upload.single("file",(req,res)=>{
     try{
         return res.status(200).json({

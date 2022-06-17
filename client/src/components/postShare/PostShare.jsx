@@ -10,8 +10,8 @@ import { uploadImage } from '../../actions/uploadActions';
 
 const PostShare = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state)=>state.authReducer.authData);
-    console.log(user)      
+    //const user = useSelector((state)=>{console.log(state.authReducer.authData.user.existingUser._id);return state.authReducer.authData;});    problem is too nested, that's why _id was undefined
+    const user = useSelector((state)=> state.authReducer.authData.user.existingUser);  
     const[image, setImage] = useState(null);
     const imageRef = useRef();
     const description = useRef()
