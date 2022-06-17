@@ -24,6 +24,10 @@ app.use(cors({
     credentials: true
 }))
 
+//To serve images for public use
+app.use(express.static('public'))
+app.use('/images',express.static("images"))
+
 // SETUP THE MIDDLEWARE
 app.use(express.json())     //in express server, it does not accept json files by default, so use this to resolve it
 
