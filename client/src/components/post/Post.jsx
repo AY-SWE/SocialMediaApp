@@ -9,13 +9,16 @@ import { useState } from 'react'
 import { likeDislikePost } from '../../api/postRequestApi'
 
 const Post = ({data}) => {
-  const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
+  //const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
+  const user = useSelector((state)=>state.authReducer.authData.user);
+const userExisting = user[Object.keys(user)[0]];
+const userId = user[Object.keys(user)[0]]._id;
   const [liked, setliked] = useState(data.likes.includes(user._id));
   const [likes, setLikes] = useState(data.likes.length);
 
   const handleLike = () => {
       setliked((prev) => !prev);
-      likeDislikePost(data._id, user._id)
+      likeDislikePost(data._id, userId)
       liked? setLikes((prev) => prev - 1): setLikes((prev) => prev + 1)
   }
 

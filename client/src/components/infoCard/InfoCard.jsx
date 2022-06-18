@@ -15,7 +15,9 @@ const dispatch = useDispatch();
 const params = useParams();
 const profileUserId = params.id;
 const [profileUser, setprofileUser] = useState({});
-const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
+const user = useSelector((state)=>state.authReducer.authData.user);
+const userExisting = user[Object.keys(user)[0]];
+const userId = user[Object.keys(user)[0]]._id;
 const handleLogout = () => {
     dispatch(logoutUser())
 }
@@ -23,8 +25,8 @@ const handleLogout = () => {
 
 useEffect(() => {
     const getProfileUser = async() => {
-        if(profileUserId === user._id){
-            setprofileUser(user)
+        if(profileUserId === userId){
+            setprofileUser(userExisting)
             //console.log("if: InfoCard fetching user: ")
             //console.log(profileUser)
         }
@@ -37,32 +39,32 @@ useEffect(() => {
         }
     }
     getProfileUser();
-},[user])   //giving it a dependency will prevent it from rendering infinite times, 
+},[userExisting])   //giving it a dependency will prevent it from rendering infinite times, 
   return (
     <div className="infoCard">
         <div className="infoHead">
             <h4>Profile Info</h4>
-            {user._id === profileUserId? (  
+            {userId === profileUserId? (  
             <div>
             <EditOutlinedIcon onClick={()=> setModalOpened(true)}/>
-            <EditInfoModal modalOpened={modalOpened} setModalOpened={setModalOpened} data = {user}/>
+            <EditInfoModal modalOpened={modalOpened} setModalOpened={setModalOpened} data = {userExisting}/>
             </div>): ("")}
     
          </div> 
          
          <div className="info">
              <span><b>Status </b></span>
-             <span>{user.relationship}</span>
+             <span>{userExisting.relationship}</span>
          </div>
 
          <div className="info">
              <span><b>Lives In </b></span>
-             <span>{user.livesIn}</span>
+             <span>{userExisting.livesIn}</span>
          </div>
 
          <div className="info">
              <span><b>Works at </b></span>
-             <span>{user.worksAt}</span>
+             <span>{userExisting.worksAt}</span>
          </div>
 
          <button className='logoutButton' onClick={handleLogout}>Logout</button>

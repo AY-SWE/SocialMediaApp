@@ -12,7 +12,10 @@ const PostShare = () => {
     const loading = useSelector((state)=> state.postReducer.uploading)
     const dispatch = useDispatch();
     //const user = useSelector((state)=>{console.log(state.authReducer.authData.user.existingUser._id);return state.authReducer.authData;});    problem is too nested, that's why _id was undefined
-    const user = useSelector((state)=> state.authReducer.authData.user.existingUser);  
+    const user = useSelector((state)=>state.authReducer.authData.user);
+    const userExisting = user[Object.keys(user)[0]];
+    const userId = user[Object.keys(user)[0]]._id;
+
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
     const[image, setImage] = useState(null);
     const imageRef = useRef();
@@ -32,7 +35,7 @@ const PostShare = () => {
 const handleShare = (e) => {
     e.preventDefault();
     const newPost = {
-        userId: user._id,
+        userId: userId,
         description: description.current.value
     }
     if(image){
@@ -56,7 +59,7 @@ const handleShare = (e) => {
 
   return (
     <div className="postShare">
-        <img src={user.profilePic? serverPublic + user.profilePic: serverPublic + "defaultProfilePic.png"} alt=''/>
+        <img src={userExisting.profilePic? serverPublic + userExisting.profilePic: serverPublic + "defaultProfilePic.png"} alt=''/>
     
         <div className='whatHappening'>
             <input required ref={description} type="text" placeholder="What is happening" />

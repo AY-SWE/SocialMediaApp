@@ -14,7 +14,7 @@ function EditInfoModal({modalOpened, setModalOpened, data}) {   //data is {user}
   const [coverImg, setcoverImg] = useState(null);
   const dispatch = useDispatch();
   const param = useParams();
-  const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
+  //const user = useSelector((state)=>state.authReducer.authData.user.updatedUser);
   const handleChange = (e) => {
     setformData({...formData, [e.target.name]:  e.target.value})
   }

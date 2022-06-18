@@ -3,10 +3,12 @@ import "./Auth.scss"
 import Logo from '../../img/cameraLogo.png'
 import {useDispatch, useSelector} from 'react-redux'
 import { loginUser, registerUser } from '../../actions/authActions';
+import { useNavigate } from 'react-router-dom';
 const Auth = () => {
   const loading = useSelector((state)=> state.authReducer.loading)
   const [isSignUp, setisSignUp] = useState(true);    //if false, render login page, isSignUp means (want to sign up)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const[data,setData] = useState({
     firstname:"",
@@ -26,10 +28,10 @@ const Auth = () => {
     e.preventDefault();
 
     if(isSignUp){
-      data.password === data.confirmPassword? dispatch(registerUser(data)): setConfirmPassword(false);
+      data.password === data.confirmPassword? dispatch(registerUser(data, navigate)): setConfirmPassword(false);
     } 
     else{
-      dispatch(loginUser(data));      //dispatch dispatches an loginUser function from authActions folder
+      dispatch(loginUser(data, navigate));      //dispatch dispatches an loginUser function from authActions folder
     }
   }
 

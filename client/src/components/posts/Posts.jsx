@@ -7,12 +7,13 @@ import { getTimelinePost } from '../../actions/postActions'
 
 const Posts = () => {
   const dispatch = useDispatch()
-  const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
-  //console.log(user._id);
+  const user = useSelector((state)=>state.authReducer.authData.user);
+  const userId = user[Object.keys(user)[0]]._id;
+  console.log(" Posts.jsx console log user ida:  "+ userId);
   const {posts, loading} = useSelector((state)=>state.postReducer);
 
   useEffect(() => {
-    dispatch(getTimelinePost(user._id))
+    dispatch(getTimelinePost(userId))
   }, [])
   return (
     <div className="posts">
