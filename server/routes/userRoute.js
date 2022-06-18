@@ -14,8 +14,8 @@ router.get("/find/:id", userController.getUser)          //no need for auth.veri
 router.put("/follow/:id", userController.followUser) 
 //UNFOLLOW A USER
 router.put("/unfollow/:id", userController.unfollowUser) 
-// //GET ALL
-// router.get("/", auth.verify, userController.getAllUser) 
+//GET ALL
+router.get("/", userController.getAllUser) 
 // //GET USER STATS
 // router.get("/stats", userController.getUserStats) 
 

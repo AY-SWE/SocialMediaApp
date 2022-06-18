@@ -106,21 +106,19 @@ followUser = async (req, res) => {
 }
 
 getAllUser = async (req, res) => {
-    const query = req.query.new;
-    if(req.user.isAdmin){
         try{
-            const allUsers = query? await User.find().limit(10): await User.find(); //if query, return last 10, else return all user
+            let allUsers = await User.find(); //if query, return last 10, else return all user
             console.log("SUCCESS all users");
+            allUsers = allUsers.map((user)=> {
+                const {password,...otherInfo} = user._doc;
+                return otherInfo;
+            })
             res.status(200).json(allUsers);
         }
         catch(err){
             console.error(err);
-            res.status(500).send();
+            res.status(500).send(err);
         }
-    }
-    else{
-        res.status(403).json({errorMessage: "You're not allowed to see all users"});
-    }
 }
 
 unfollowUser = async (req, res) => {

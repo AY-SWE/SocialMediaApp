@@ -53,17 +53,17 @@ useEffect(() => {
          </div> 
          
          <div className="info">
-             <span><b>Status </b></span>
+             <span><b>Status: </b></span>
              <span>{userExisting.relationship}</span>
          </div>
 
          <div className="info">
-             <span><b>Lives In </b></span>
+             <span><b>Lives In: </b></span>
              <span>{userExisting.livesIn}</span>
          </div>
 
          <div className="info">
-             <span><b>Works at </b></span>
+             <span><b>Works at: </b></span>
              <span>{userExisting.worksAt}</span>
          </div>
 

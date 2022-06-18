@@ -6,4 +6,5 @@ const api = axios.create({
 
 
 export const getUser = (id) => api.get(`/user/find/${id}`)
+export const getAllUser = () => api.get("/user/")
 export const updateUser = (id, formData) => api.put(`/user/${id}`, formData)
