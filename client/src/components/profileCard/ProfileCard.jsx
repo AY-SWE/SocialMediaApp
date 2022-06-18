@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import Cover from '../../img/cover2.jpg'
+//import Cover from '../../img/cover2.jpg'
 import './ProfileCard.scss'
 import { Link } from 'react-router-dom'
 //src="https://www.themarysue.com/wp-content/uploads/2022/05/Anya-smile.jpg"

@@ -19,6 +19,7 @@ const UserSchema = new Schema(
         worksAt: { type: String, default: "" },
         relationship: { type: String, default: "" },
         isAdmin: { type: Boolean, default: false },
+        country: { type: String, default: "" },
         followers:[],
         followings:[]
     },

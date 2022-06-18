@@ -23,3 +23,7 @@ export const registerUser = (formData) => async(dispatch)=> {
    }
 }
 
+export const logoutUser = () => async(dispatch)=> {
+     dispatch({type: "AUTH_LOGOUT"})
+ }
+

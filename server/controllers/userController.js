@@ -6,7 +6,7 @@
     
     @author Andy Yang
 */
-
+const auth = require('../auth')
 const User = require('../models/User')
 const bcrypt = require("bcryptjs");
 
@@ -18,8 +18,8 @@ updateUser = async (req, res)  => {
             error: 'You must provide a body to update user',
         })
     }
-    const {password, currentUserId, currentUserAdminStatus} = req.body;
-    if(currentUserId === req.params.id || currentUserAdminStatus){
+    const {password, _id} = req.body;
+    if(_id === req.params.id){
 
         if(password){       //password is also in req.body, means user also wants to update password
             const saltRounds = 10;
@@ -30,7 +30,13 @@ updateUser = async (req, res)  => {
         try{
             const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}); //update first, then return new user updated info 
             console.log("SUCCESS updated user");
-            res.status(200).json(updatedUser);
+             // LOGIN THE USER
+            const token = auth.signToken(updatedUser.username, updatedUser._id);
+            res.status(200).json({
+                success: true,
+                user: {updatedUser},
+                token:{token}
+              })
         }
         catch(err){
             res.status(500).send({errorMessage: req.params.id});
