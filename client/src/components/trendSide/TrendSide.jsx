@@ -7,12 +7,16 @@ import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import TrendCard from '../trendCard/TrendCard';
 import ShareModal from '../shareModal/ShareModal';
+import { Link } from 'react-router-dom';
+
 const TrendSide = () => {
   const [modalOpened, setModalOpened] = useState(false);
   return (
     <div className='trendSide'>
         <div className="navIcons">
-        <HomeOutlinedIcon/>
+        <Link to="../home">
+          <HomeOutlinedIcon />
+        </Link>
         <NotificationsNoneOutlinedIcon/>
         <AddCommentOutlinedIcon/>
         <SettingsOutlinedIcon/>

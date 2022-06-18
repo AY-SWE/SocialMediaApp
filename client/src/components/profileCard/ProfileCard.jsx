@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Cover from '../../img/cover2.jpg'
 import './ProfileCard.scss'
+import { Link } from 'react-router-dom'
 //src="https://www.themarysue.com/wp-content/uploads/2022/05/Anya-smile.jpg"
 
 const ProfileCard = () => {
@@ -15,28 +16,30 @@ const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
         </div>
 
         <div className="profileName">
-            <span>Anya Forger</span>
-            <span>World Destroyer</span>
+            <span>{user.firstname} {user.lastname}</span>
+            <span>{user.worksAt? user.worksAt: "Include your Profession"}</span>
         </div>
 
         <div className="followStatus">
             <hr/>
                 <div>
                 <div className="follow">
-                    <span>888,888</span>
+                    <span>{user.followers.length}</span>
                     <span>Followers</span>
                 </div>
                 <div className="vert"></div>
                 <div className="follow">
-                    <span>1</span>
+                    <span>{user.followings.length}</span>
                     <span>Following</span>
                 </div>
 
                 </div>
             <hr/>       
         </div>
-
-        <span className='profileLink'>My Profile</span>
+        <span className='profileLink'>
+            <Link to={`/profile/${user._id}`} style={{textDecoration: "none", color:"inherit"}}>
+            My Profile</Link>
+            </span>
     </div>
   )
 }

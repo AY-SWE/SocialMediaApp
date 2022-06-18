@@ -13,6 +13,11 @@
         align-self: center;
         margin-bottom: 1rem;
         cursor: pointer;
+
+        &:Link{
+            text-decoration: none;
+            color: var(--lightBlue);
+        }
     }
 }
 

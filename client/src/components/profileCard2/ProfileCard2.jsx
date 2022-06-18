@@ -1,35 +1,39 @@
 import React from 'react'
 import Cover from '../../img/cover2.jpg'
 import './ProfileCard2.scss'
+import { useSelector } from 'react-redux'
 
 const ProfileCard2 = () => {
+const user = useSelector((state)=> state.authReducer.authData.user.existingUser);  
+const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
+const {posts, loading} = useSelector((state)=>state.postReducer);
   return (
     <div className="profileCard">
         <div className="profileImage2">
-            <img src={Cover} alt=''></img>
-            <img src="https://www.themarysue.com/wp-content/uploads/2022/05/Anya-smile.jpg" alt=''></img>
+            <img src={user.coverPic? serverPublic + user.coverPic: serverPublic + "defaultCoverPic"} alt=''></img>
+            <img src={user.profilePic? serverPublic + user.profilePic: serverPublic + "defaultProfilePic.png"} alt=''></img>
         </div>
 
         <div className="profileName">
-            <span>Anya Forger</span>
-            <span>World Destroyer</span>
+            <span>{user.firstname} {user.lastname}</span>
+            <span>{user.worksAt? user.worksAt: "Include your Profession"}</span>
         </div>
 
         <div className="followStatus">
             <hr/>
                 <div>
                 <div className="follow">
-                    <span>888,888</span>
+                    <span>{user.followers.length}</span>
                     <span>Followers</span>
                 </div>
                 <div className="vert"></div>
                 <div className="follow">
-                    <span>1</span>
+                    <span>{user.followings.length}</span>
                     <span>Following</span>
                 </div>
                 <div className="vert"></div>
                 <div className="follow">
-                    <span>5</span>
+                    <span>{posts.filter((post)=>post.userId===user._id).length}</span>
                     <span>Posts</span>
                 </div>
 
