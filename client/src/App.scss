@@ -33,6 +33,25 @@
   filter: blur(70px);
 }
 
+.blurBlue{
+  position: absolute;
+  width: 15rem;
+  height: 20rem;
+  background-color: #22ddeb;  
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+
+.blurYellow{
+  position: absolute;
+  width: 45rem;
+  height: 20rem;
+  background-color: #ebb73e;  
+  border-radius: 50%;
+  filter: blur(200px);
+}
+
 button{
   display: flex;
   align-items: center;

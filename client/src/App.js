@@ -23,6 +23,8 @@ const App = () => {
     <div className="App">
           <div className='blur' style = {{top: '-18%', right: '0'}}></div>
         <div className='blur' style = {{top: '35%', left: '-8rem'}}></div>
+        <div className='blurBlue' style = {{top: '45%', left: '90rem'}}></div>
+        <div className='blurYellow' style = {{top: '35%', left: '35rem'}}></div>
         <Routes>
           <Route exact path="/" element={user? <Navigate to="home"/>: <Navigate to="auth"/>}/>  
           <Route path="/home" element={user? <Home/>: <Navigate to="../auth"/>}/>
