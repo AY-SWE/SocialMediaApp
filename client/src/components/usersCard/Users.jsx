@@ -1,10 +1,23 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-const Users = ({follower}) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { followUser, unfollowUser } from '../../actions/userActions';
+import { useState } from 'react';
+const Users = ({follower}) => {         //Users is actually User, each single follower in followerCard
+
     const user = useSelector((state)=>state.authReducer.authData.user);
     const userExisting = user[Object.keys(user)[0]];
     const userId = user[Object.keys(user)[0]]._id;
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
+    const [following, setFollowing] = useState(follower.followings.includes(userId));
+
+const dispatch = useDispatch()
+const handleFollow = () => {
+    following?
+    dispatch(unfollowUser(follower._id, userExisting)):
+    dispatch(followUser(follower._id, userExisting))
+
+    setFollowing((prev)=> !prev)
+}
 
   return (
     <div className="follower"> 
@@ -16,8 +29,8 @@ const Users = ({follower}) => {
             </div>
           </div>
 
-          <button className='button-follower'>
-              Follow
+          <button className={following? 'button-Unfollower': 'button-follower'} onClick={handleFollow}>
+              {following? "Unfollow": "Follow"}
           </button>
         </div>
         

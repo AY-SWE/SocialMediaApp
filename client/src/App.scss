@@ -14,6 +14,7 @@
   --location: #8922af;
   --schedule: #137bb3;
   --lightBlue: #20cfea;
+  --lightRed: #fb5b05;
 
 }
 
@@ -84,6 +85,20 @@ button{
           padding-right: 20px;
           height: 2rem;
           padding-left: 20px;
+    }
+
+    &.button-Unfollower{
+      padding-right: 20px;
+          height: 2rem;
+          padding-left: 20px;
+          color: var(--lightRed);
+          background: transparent;
+          border: 2px solid var(--lightRed);
+
+          &:hover{
+            background:var(--lightRed);
+            color: white;
+          }
     }
 
     &.trendSideButton{

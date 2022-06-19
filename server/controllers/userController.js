@@ -82,17 +82,17 @@ getUser = async (req, res) => {
 }
 
 followUser = async (req, res) => {
-    const {currentUserId} = req.body;   
-    if(currentUserId === req.params.id){        //no one should be able to follow themselves
+    const {_id} = req.body;   
+    if(_id === req.params.id){        //no one should be able to follow themselves
         res.status(403).json({errorMessage: "User cannot follow him/herself"});
     }
     else{
         try{
             const followUser = await User.findById(req.params.id); //followUser is whom we want to follow
-            const followingUser = await User.findById(currentUserId);       //the one who is performing the following request to followUser
+            const followingUser = await User.findById(_id);       //the one who is performing the following request to followUser
             if(!followingUser.followings.includes(req.params.id)){
                 await followingUser.updateOne({$push: {followings: req.params.id}})
-                await followUser.updateOne({$push: {followers: currentUserId}})
+                await followUser.updateOne({$push: {followers: _id}})
                 res.status(200).json("desired User has been followed: " + followUser.username);
             }
             else{
@@ -122,17 +122,17 @@ getAllUser = async (req, res) => {
 }
 
 unfollowUser = async (req, res) => {
-    const {currentUserId} = req.body;   
-    if(currentUserId === req.params.id){        //no one should be able to unfollow themselves
+    const {_id} = req.body;   
+    if(_id === req.params.id){        //no one should be able to unfollow themselves
         res.status(403).json({errorMessage: "User cannot unfollow him/herself"});
     }
     else{
         try{
             const unfollowUser = await User.findById(req.params.id); //unfollowUser is whom we want to unfollow
-            const unfollowingUser = await User.findById(currentUserId);       //the one who is performing the unfollowing request to unfollowUser
+            const unfollowingUser = await User.findById(_id);       //the one who is performing the unfollowing request to unfollowUser
             if(unfollowingUser.followings.includes(req.params.id)){     //if user's following array contains the desired user to unfollow, then proceed
                 await unfollowingUser.updateOne({$pull: {followings: req.params.id}})
-                await unfollowUser.updateOne({$pull: {followers: currentUserId}})
+                await unfollowUser.updateOne({$pull: {followers: _id}})
                 res.status(200).json("desired User has been UNfollowed: " + unfollowUser.username);
             }
             else{

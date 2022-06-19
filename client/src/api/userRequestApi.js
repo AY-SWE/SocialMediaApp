@@ -8,3 +8,5 @@ const api = axios.create({
 export const getUser = (id) => api.get(`/user/find/${id}`)
 export const getAllUser = () => api.get("/user/")
 export const updateUser = (id, formData) => api.put(`/user/${id}`, formData)
+export const followUser = (id, formData) => api.put(`/user/follow/${id}`, formData)
+export const unfollowUser = (id, formData) => api.put(`/user/unfollow/${id}`, formData)

@@ -12,3 +12,14 @@ export const updateUser = (id, formData) => async(dispatch)=> {
          dispatch({type: "UPDATING_FAILED"})
     }
  }
+
+ export const followUser = (id, formData) => async(dispatch)=> {
+    dispatch({type: "FOLLOW_USER"})
+    await userApi.followUser(id, formData);
+}
+
+export const unfollowUser = (id, formData) => async(dispatch)=> {
+    dispatch({type: "UNFOLLOW_USER"})
+    await userApi.unfollowUser(id, formData);
+}
+ 
