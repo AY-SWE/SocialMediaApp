@@ -8,7 +8,7 @@ const Users = ({follower}) => {         //Users is actually User, each single fo
     const userExisting = user[Object.keys(user)[0]];
     const userId = user[Object.keys(user)[0]]._id;
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
-    const [following, setFollowing] = useState(follower.followings.includes(userId));
+    const [following, setFollowing] = useState(follower.followers.includes(userId));
 
 const dispatch = useDispatch()
 const handleFollow = () => {
