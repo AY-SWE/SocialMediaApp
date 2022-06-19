@@ -2,10 +2,11 @@
 //const auth = require("../auth");
 const express = require("express");
 const router = express.Router();        // express library's Router method
+const auth = require('../auth')
 const userController = require("../controllers/userController");
 
 //UPDATE
-router.put("/:id", userController.updateUser)
+router.put("/:id",userController.updateUser)
 //DELETE
 router.delete("/:id", userController.deleteUser)
 //GET

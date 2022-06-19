@@ -4,6 +4,13 @@ const api = axios.create({
     baseURL: 'http://localhost:5000',
 })
 
+api.interceptors.request.use((req)=> {
+    if(localStorage.getItem('profile')){
+        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`       //Bearer is a string part that will return this whole thing as ana array of two elements, which is what we want on the server side
+        
+    }
+    return req;
+})
 
 export const getUser = (id) => api.get(`/user/find/${id}`)
 export const getAllUser = () => api.get("/user/")
