@@ -11,9 +11,4 @@ router.get("/:id", chatController.getAllChats)     //gets all chats for a specif
 router.get("/find/:firstId/:secondId", chatController.getChat) //get specific chat between 2 users
 
 
-// //UPDATE
-// router.put("/:id", postController.updatePost)
-// //DELETE
-// router.delete("/:id", postController.deletePost)
-
 module.exports = router;
