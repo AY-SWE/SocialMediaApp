@@ -6,7 +6,7 @@ const auth = require('../auth')
 const userController = require("../controllers/userController");
 
 //UPDATE
-router.put("/:id",userController.updateUser)
+router.put("/:id", userController.updateUser)
 //DELETE
 router.delete("/:id", userController.deleteUser)
 //GET

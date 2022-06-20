@@ -44,6 +44,9 @@ app.use('/post', postRoute)
 const uploadRoute = require('./routes/uploadRoute')
 app.use('/upload', uploadRoute)
 
+const chatRoute = require('./routes/chatRoute')
+app.use('/chat', chatRoute)
+
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
