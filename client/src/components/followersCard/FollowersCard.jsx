@@ -10,6 +10,7 @@ const FollowersCard = () => {
   const user = useSelector((state)=>state.authReducer.authData.user);
   const userExisting = user[Object.keys(user)[0]];
   const userId = user[Object.keys(user)[0]]._id;
+  //console.log("FollowersCard: " + userId);
   const [followers, setFollowers] = useState([]);
 
   useEffect(() => {
