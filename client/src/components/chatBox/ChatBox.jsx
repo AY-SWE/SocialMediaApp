@@ -51,7 +51,8 @@ const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser pa
   return (
     <>
         <div className="chatboxContainer">
-            <>
+            {chat? (
+                <>
                 <div className="chatBoxHeader">
                     <div className="follower">
                         <div>
@@ -98,6 +99,8 @@ const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser pa
                     />
                 </div>
             </>
+            ) : (<span className='chatboxEmptyMessage'>Tap on a friend to open/start conversation!...</span>)}
+            
         </div>
     </>
   )
