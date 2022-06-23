@@ -1,0 +1,12 @@
+.chatboxContainer{
+    background: var(--cardColor);
+    border-radius: 1rem;
+    display: grid;
+    grid-template-rows: 14vh 60vh 13vh;
+
+    .chatBoxHeader{
+        padding: 1rem 1rem 0rem 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+}

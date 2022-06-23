@@ -5,8 +5,16 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { userChats } from '../../api/chatRequestApi'
 import Conversation from '../../components/conversation/Conversation'
+import { Link } from 'react-router-dom'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import ChatBox from '../../components/chatBox/ChatBox'
+
 const Chat = () => {
     const [chats, setchats] = useState([]);
+    const [currentChat, setCurrentChat] = useState(null);
     const user = useSelector((state)=>state.authReducer.authData.user);
    const userExisting = user[Object.keys(user)[0]];
     const userId = user[Object.keys(user)[0]]._id;
@@ -32,8 +40,9 @@ const Chat = () => {
                 <h2>Chats</h2>
                 <div className="chatList">
                    {chats.map((chat)=> (
-                    <div>
+                    <div onClick={()=>setCurrentChat(chat)}>
                         <Conversation data={chat} currentUserId={userId}/>
+                        <hr style={{width:"85%", border: "0.1px solid #eeeeee"}}/>
                     </div>
                    ))}
                 </div>
@@ -41,6 +50,19 @@ const Chat = () => {
         </div>
 
         <div className="rightSide">
+            <div className="navIcons">
+                <Link to="../home">
+                <HomeOutlinedIcon />
+                </Link>
+                <NotificationsNoneOutlinedIcon/>
+                <Link to= "../chat">
+                <ChatBubbleOutlineOutlinedIcon />
+                </Link>
+                <SettingsOutlinedIcon/>
+            </div>
+
+            {/* chat body */}
+            <ChatBox chat ={currentChat} currentUser ={userId}/>
         </div>
     </div>
   )
