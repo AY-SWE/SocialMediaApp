@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect} from 'react'
 import "./Chat.scss"
 import LogoSearch from "../../components/logoSearch/LogoSearch"
 import { useState } from 'react'
@@ -12,6 +12,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import ChatBox from '../../components/chatBox/ChatBox'
 import {io} from "socket.io-client"
+import { useRef } from 'react'
 
 const Chat = () => {
     const [chats, setchats] = useState([]);
@@ -26,11 +27,11 @@ const Chat = () => {
     useEffect(() => {
         socket.current = io("http://localhost:8800");
         socket.current.emit("new-user-add", userId);
-        socket.current.on("get-user", (users)=>{
-            setOnlineUsers(users);
-            console.log(onlineUsers);       
-        })
-    },[user]) 
+        socket.current.on("get-user", (users) => {
+          setOnlineUsers(users);
+          console.log(users);
+        });
+      }, [user]);
 
     useEffect(() => {
         const getChats = async()=>{
@@ -45,7 +46,6 @@ const Chat = () => {
         }
         getChats();
     },[user])   //getChats() called everytime user that's logged in has changed
-
   return (
     <div className="chat">
         <div className="leftSide">
