@@ -20,6 +20,17 @@ io.on("connection", (socket) => {
         io.emit("get-user", activeUsers)        
     })
 
+    //send message
+    socket.on("send-message", (data) => {
+        const {receiverId} = data;
+        const user = activeUsers.find((user)=> user.userId === receiverId);
+        console.log("sending from socket to receiver: ", receiverId);       //shows up correctly
+        console.log("data : ", data);
+        if(user){
+            io.to(user.socketId).emit("receive-message", data)      //emit is sending to client side
+        }
+    }) 
+
     socket.on("disconnect",()=>{
         activeUsers = activeUsers.filter((user)=> user.socketId !== socket.id)      //filter out the user that is trying to disconnect
         console.log("User disconnected ", activeUsers)

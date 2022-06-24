@@ -18,11 +18,12 @@ const Chat = () => {
     const [chats, setchats] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const user = useSelector((state)=>state.authReducer.authData.user);
-   const userExisting = user[Object.keys(user)[0]];
     const userId = user[Object.keys(user)[0]]._id;
     //console.log(userId);
     const socket = useRef();
     const [onlineUsers, setOnlineUsers] = useState([]);
+    const [sendMessage, setSendMessage] = useState(null);
+    const [receiveMessage, setReceiveMessage] = useState(null);
 
     useEffect(() => {
         socket.current = io("http://localhost:8800");
@@ -32,6 +33,23 @@ const Chat = () => {
           //console.log(onlineUsers);       //works
         });
       }, [user]);
+
+      
+    useEffect(() => {           //for real-time sending messages
+        if(sendMessage!== null){
+            socket.current.emit("send-message", sendMessage);
+        }
+      }, [sendMessage]);
+
+      
+      useEffect(() => {           //for real-time receiving messages from socket server, should be after initialization of our sokcet's useEffect
+        if(sendMessage!== null){
+            socket.current.on("receive-message", (data)=>{
+                console.log("receiveMessage in Chat.jsx");
+                setReceiveMessage(data);
+            });
+        }
+      }, []);       //depends on whether a receive message exist or not
 
     useEffect(() => {
         const getChats = async()=>{
@@ -76,7 +94,7 @@ const Chat = () => {
             </div>
 
             {/* chat body */}
-            <ChatBox chat ={currentChat} currentUser ={userId}/>
+            <ChatBox chat ={currentChat} currentUser ={userId} setSendMessage = {setSendMessage} receiveMessage = {receiveMessage}/>
         </div>
     </div>
   )

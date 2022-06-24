@@ -5,14 +5,16 @@ import "./ChatBox.scss"
 import {format} from "timeago.js";
 import InputEmoji from "react-input-emoji"
 
-const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser passed here from Chat.jsx
+const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      //currentChat and currentUser passed here from Chat.jsx
     const [userData, setuserData] = useState(null);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");       //for input 
+    
     const handleChange = (newMessage) => {
         setNewMessage(newMessage)
     }
+
     const handleSend = async (e) => {
         e.preventDefault();
         const message = {
@@ -30,7 +32,13 @@ const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser pa
         catch(err){
             console.log(err);
         }
+
+        //send message to socket server
+        const receiverId = chat.members.find((id)=> id !== currentUser);
+        setSendMessage({...message, receiverId})    // send the available message to receiverId
+
     }
+
     //getting data for header
     useEffect(() => {
         const userId = chat?.members?.find((id)=> id !== currentUser)
@@ -63,6 +71,14 @@ const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser pa
         if(chat !== null)
             getMessages();  
     },[chat])   
+
+    useEffect(() => {
+        //console.log("receiveMessage in chatBox.jsxOUTER");
+        if(receiveMessage !== null && receiveMessage.chatId === chat._id){
+            console.log("receiveMessage in chatBox.jsx")
+            setMessages([...messages, receiveMessage]);
+        } 
+    },[receiveMessage])   
 
   return (
     <>
