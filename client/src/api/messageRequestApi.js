@@ -6,3 +6,4 @@ const api = axios.create({
 
 
 export const getMessasges = (id) => api.get(`/message/${id}`)
+export const createMessage = (data) => api.post('/message/', data)

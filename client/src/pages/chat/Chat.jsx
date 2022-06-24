@@ -29,7 +29,7 @@ const Chat = () => {
         socket.current.emit("new-user-add", userId);
         socket.current.on("get-user", (users) => {
           setOnlineUsers(users);
-          console.log(users);
+          //console.log(onlineUsers);       //works
         });
       }, [user]);
 

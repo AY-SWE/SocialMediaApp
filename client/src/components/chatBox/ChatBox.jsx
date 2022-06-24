@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { getMessasges } from '../../api/messageRequestApi';
+import { createMessage, getMessasges } from '../../api/messageRequestApi';
 import { getUser } from '../../api/userRequestApi';
 import "./ChatBox.scss"
 import {format} from "timeago.js";
@@ -9,11 +9,27 @@ const ChatBox = ({chat, currentUser}) => {      //currentChat and currentUser pa
     const [userData, setuserData] = useState(null);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
     const [messages, setMessages] = useState([]);
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState("");       //for input 
     const handleChange = (newMessage) => {
         setNewMessage(newMessage)
     }
-    const handleSend = () => {
+    const handleSend = async (e) => {
+        e.preventDefault();
+        const message = {
+            senderId: currentUser,
+            text: newMessage,
+            chatId: chat._id
+        }
+
+        //send message to database
+        try{
+            const {data} = await createMessage(message);
+            setMessages([...messages, data]);
+            setNewMessage("");      //after clicking send, input space will become blank again
+        }
+        catch(err){
+            console.log(err);
+        }
     }
     //getting data for header
     useEffect(() => {
