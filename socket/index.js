@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
                 socketId: socket.id
             })
         }
-        console.log("Connected Users  ", activeUsers);      //console logged to terminal side
+        console.log("Connected UsersS  ", activeUsers);      //console logged to terminal side
         io.emit("get-user", activeUsers)        
     })
 

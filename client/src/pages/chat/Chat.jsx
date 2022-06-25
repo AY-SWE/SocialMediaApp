@@ -20,6 +20,7 @@ import MenuItem from '@mui/material/MenuItem';
 const Chat = () => {
     const [chats, setchats] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
+    const userAuthData = useSelector((state)=>state.authReducer.authData);
     const user = useSelector((state)=>state.authReducer.authData.user);
     const userId = user[Object.keys(user)[0]]._id;
     //console.log(userId);
@@ -33,13 +34,15 @@ const Chat = () => {
         socket.current.emit("new-user-add", userId);
         socket.current.on("get-user", (users) => {
           setOnlineUsers(users);
-          //console.log(onlineUsers);       //works
+          console.log(onlineUsers);       //works
         });
-      }, [user]);
+      }, [userAuthData]);
       
       useEffect(() => {           //for real-time receiving messages from socket server, should be after initialization of our sokcet's useEffect
+        console.log("receive-message in Chat.jsx outerrrr");
+           
         if(sendMessage!== null){
-            //console.log("receive-message in Chat.jsx outerrrrr sendMEssage is NOT NULL");
+            console.log("receive-message in Chat.jsx outerrrrr sendMEssage is NOT NULL");
             socket.current.on("receive-message", (data)=>{
                 console.log("receiveMessage in Chat.jsx");
                 setReceiveMessage(data);
@@ -67,7 +70,7 @@ const Chat = () => {
             }
         }
         getChats();
-    },[user])   //getChats() called everytime user that's logged in has changed
+    },[userAuthData])   //getChats() called everytime user that's logged in has changed
 
     const checkOnlineStatus = (chat) => {
         const chatMember = chat.members.find((member) => member !== userId);    //extracted that other person besides myself
