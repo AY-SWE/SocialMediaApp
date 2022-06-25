@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import "./Chat.scss"
 import LogoSearch from "../../components/logoSearch/LogoSearch"
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { userChats } from '../../api/chatRequestApi'
 import Conversation from '../../components/conversation/Conversation'
 import { Link } from 'react-router-dom'
@@ -13,6 +13,9 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import ChatBox from '../../components/chatBox/ChatBox'
 import {io} from "socket.io-client"
 import { useRef } from 'react'
+import { logoutUser } from '../../actions/authActions'
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const Chat = () => {
     const [chats, setchats] = useState([]);
@@ -72,6 +75,39 @@ const Chat = () => {
         return online? true: false;
     }
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isMenuOpen = Boolean(anchorEl);
+    const dispatch = useDispatch();
+
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+    setAnchorEl(null);
+    };
+
+    const handleLogout = () => {
+    dispatch(logoutUser())
+    }
+
+    const menu = 
+        <Menu 
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleLogout} style={{fontWeight:"bold", fontSize:"14px"}}>Logout</MenuItem>
+        </Menu>    
+
   return (
     <div className="chat">
         <div className="leftSide">
@@ -98,7 +134,8 @@ const Chat = () => {
                 <Link to= "../chat">
                 <ChatBubbleOutlineOutlinedIcon />
                 </Link>
-                <SettingsOutlinedIcon/>
+                <SettingsOutlinedIcon onClick={handleProfileMenuOpen}/>
+                {menu}
             </div>
 
             {/* chat body */}
