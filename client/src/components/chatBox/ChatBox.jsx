@@ -4,13 +4,15 @@ import { getUser } from '../../api/userRequestApi';
 import "./ChatBox.scss"
 import {format} from "timeago.js";
 import InputEmoji from "react-input-emoji"
+import { useRef } from 'react';
 
 const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      //currentChat and currentUser passed here from Chat.jsx
     const [userData, setuserData] = useState(null);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");       //for input 
-    
+    const scroll = useRef();
+
     const handleChange = (newMessage) => {
         setNewMessage(newMessage)
     }
@@ -80,6 +82,11 @@ const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      
         } 
     },[receiveMessage])   
 
+    //ALWays scroll to last message
+    useEffect(() => {
+        scroll.current?.scrollIntoView({behavior:"smooth"})
+    },[messages])   
+
   return (
     <>
         <div className="chatboxContainer">
@@ -106,7 +113,7 @@ const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      
                     {messages.map((message)=> {
                         return(
                         <>
-                        <div className={message.senderId === currentUser? "message own": "message"}>
+                        <div ref={scroll} className={message.senderId === currentUser? "message own": "message"}>
                             <span>{message.text}</span>
                             <span>{format(message.createdAt)}</span>
                         </div>

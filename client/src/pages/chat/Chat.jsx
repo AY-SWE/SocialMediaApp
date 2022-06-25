@@ -33,23 +33,24 @@ const Chat = () => {
           //console.log(onlineUsers);       //works
         });
       }, [user]);
-
-      
-    useEffect(() => {           //for real-time sending messages
-        if(sendMessage!== null){
-            socket.current.emit("send-message", sendMessage);
-        }
-      }, [sendMessage]);
-
       
       useEffect(() => {           //for real-time receiving messages from socket server, should be after initialization of our sokcet's useEffect
         if(sendMessage!== null){
+            //console.log("receive-message in Chat.jsx outerrrrr sendMEssage is NOT NULL");
             socket.current.on("receive-message", (data)=>{
                 console.log("receiveMessage in Chat.jsx");
                 setReceiveMessage(data);
             });
         }
       }, []);       //depends on whether a receive message exist or not
+
+       
+    useEffect(() => {           //for real-time sending messages
+        if(sendMessage!== null){
+            socket.current.emit("send-message", sendMessage);
+            //console.log("send-message in Chat.jsx");
+        }
+      }, [sendMessage]);
 
     useEffect(() => {
         const getChats = async()=>{
