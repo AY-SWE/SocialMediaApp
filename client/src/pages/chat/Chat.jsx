@@ -65,6 +65,13 @@ const Chat = () => {
         }
         getChats();
     },[user])   //getChats() called everytime user that's logged in has changed
+
+    const checkOnlineStatus = (chat) => {
+        const chatMember = chat.members.find((member) => member !== userId);    //extracted that other person besides myself
+        const online = onlineUsers.find((user) => user.userId === chatMember)   //checks whether this person is included in onlineUsers array
+        return online? true: false;
+    }
+
   return (
     <div className="chat">
         <div className="leftSide">
@@ -74,7 +81,7 @@ const Chat = () => {
                 <div className="chatList">
                    {chats.map((chat)=> (
                     <div onClick={()=>setCurrentChat(chat)}>
-                        <Conversation data={chat} currentUserId={userId}/>
+                        <Conversation data={chat} currentUserId={userId} online={checkOnlineStatus(chat)}/>   
                         <hr style={{width:"85%", border: "0.1px solid #eeeeee"}}/>
                     </div>
                    ))}

@@ -101,8 +101,8 @@ const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      
                                 className='followerImg'/>
 
                             <div className="followerName">
-                                <span>{userData?.firstname} {userData?.lastname}</span>
-                                <hr style={{width:"85%", border: "0.1px solid #eeeeee" , marginTop: "20px"}}/>
+                                <span style={{fontWeight:"bold"}}>{userData?.firstname} {userData?.lastname}</span>
+                                <hr style={{width:"85%", border: "0.1px solid #eeeeee" , marginTop: "13px"}}/>
                             </div>
                         </div>
                     </div>

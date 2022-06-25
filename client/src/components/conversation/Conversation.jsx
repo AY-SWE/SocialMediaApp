@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { getUser } from '../../api/userRequestApi';
 //import "./Conversation.scss"      //styling done in Chat.jsx
 
-const Conversation = ({data, currentUserId}) => {
+const Conversation = ({data, currentUserId, online}) => {
     const [userData, setuserData] = useState(null);
     const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
     useEffect(() => {
@@ -23,14 +23,17 @@ const Conversation = ({data, currentUserId}) => {
   return (
     <div className="followerConversation">
         <div>
+            {online && 
             <div className="onlineDot">
-            </div>
+            </div> 
+            }
             <img src={userData?.profilePic? serverPublic + userData.profilePic: serverPublic + "defaultProfilePic.png"} 
                 alt="" 
                 className='followerImg'/>
 
             <div className="followerName">
-                <span>{userData?.firstname} {userData?.lastname}</span>
+                <span style={{fontWeight:"bold"}}>{userData?.firstname} {userData?.lastname}</span>
+                <span>{online?"Online": "Offline"}</span>
             </div>
         </div>
     </div>

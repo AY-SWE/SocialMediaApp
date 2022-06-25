@@ -11,13 +11,24 @@ import { Link } from 'react-router-dom';
 
 const TrendSide = () => {
   const [modalOpened, setModalOpened] = useState(false);
+  const [hover, setHover] = useState(false);    //for nav icons
+
   return (
     <div className='trendSide'>
         <div className="navIcons">
-        <Link to="../home">
+        <Link to="../home" 
+        onMouseEnter={()=>{
+        setHover(true);}}
+         onMouseLeave={()=>{
+          setHover(false);
+        }} 
+        style={{
+          ...(hover ? {color:"var(--navIconHover)"} : {color:"black"})
+        }}>
           <HomeOutlinedIcon />
         </Link>
-        <NotificationsNoneOutlinedIcon/>
+        <NotificationsNoneOutlinedIcon
+        />
         <Link to= "../chat">
           <ChatBubbleOutlineOutlinedIcon />
         </Link>
