@@ -1,3 +1,7 @@
-# Getting Started with Create React App
+# Social Media App - AY EXPLORE 
 
-![](https://github.com/AY-SWE/SocialMediaApp/blob/main/client/src/data/testing.mp4)
+## A MERN-stack based application that allow users to create their own social media account, upload posts, and socialize with other users!
+
+SAMPLE DEMO VIDEOS BELOW
+
+![]()
