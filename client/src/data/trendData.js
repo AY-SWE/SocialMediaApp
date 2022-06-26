@@ -1,26 +1,26 @@
 export const TrendData= [
     {
-      name: "Hunter x Hunter hiatus return",
-      shares: 97,
+      name: "SPY FAMILY",
+      shares: "207k shares",
     },
     {
-      name: "Avangers",
-      shares: 80.5,
+      name: "Upcoming Apple products",
+      shares: "100k shares",
     },
     {
       name: "MarvelsMultiVerse",
-      shares: 75.5,
+      shares: "85k shares",
     },
     {
-      name: "Stony Brook Univerisity",
-      shares: 72,
+      name: "Stony Brook University",
+      shares: "77k shares",
     },
     {
-      name: "Hollywood vs Bollywood",
-      shares: 71.9,
+      name: "Stock Market Recession?",
+      shares: "48k shares",
     },
     {
       name: "Tik Tok",
-      shares: 20,
+      shares: "14k shares",
     },
   ];
