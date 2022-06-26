@@ -75,12 +75,10 @@ const ChatBox = ({chat, currentUser, setSendMessage, receiveMessage}) => {      
     },[chat])   
 
     useEffect(() => {
-        //console.log("receiveMessage in chatBox.jsxOUTER");
-        if(receiveMessage !== null && receiveMessage.chatId === chat._id){
-            console.log("receiveMessage in chatBox.jsx")
-            setMessages([...messages, receiveMessage]);
+        if(receiveMessage && receiveMessage.chatId === chat._id){
+            setMessages((prev)=>[...prev, receiveMessage]);
         } 
-    },[receiveMessage])   
+    },[receiveMessage, chat])   
 
     //ALWays scroll to last message
     useEffect(() => {

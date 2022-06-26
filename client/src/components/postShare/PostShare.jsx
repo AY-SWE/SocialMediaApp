@@ -36,7 +36,8 @@ const handleShare = (e) => {
     e.preventDefault();
     const newPost = {
         userId: userId,
-        description: description.current.value
+        description: description.current.value,
+        createdBy: userExisting.username
     }
     if(image){
         const data = new FormData();

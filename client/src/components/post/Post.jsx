@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { likeDislikePost } from '../../api/postRequestApi'
 
-const Post = ({data}) => {
+var moment = require("moment");
+
+const Post = ({data}) => {        //data is a single post from postReducer from Posts.jsx
   //const user = useSelector((state)=>state.authReducer.authData.user.existingUser);
   const user = useSelector((state)=>state.authReducer.authData.user);
-  //const userExisting = user[Object.keys(user)[0]];
+  const userExisting = user[Object.keys(user)[0]];
 const userId = user[Object.keys(user)[0]]._id;
   const [liked, setliked] = useState(data.likes.includes(user._id));
   const [likes, setLikes] = useState(data.likes.length);
@@ -32,10 +34,13 @@ const userId = user[Object.keys(user)[0]]._id;
           <img src= {Share} alt=""/>
       </div>
 
-      <span style={{color:"black", fontSize:"13px"}}>{likes} Likes</span>
+      <span style={{color:"black", fontSize:"13px", fontWeight:"bold"}}>{likes} Likes</span>
       <div className="details">
-        <span><b>{data.name}</b></span>
+        <span><b>{data.createdBy}</b></span>
         <span> {data.description}</span>
+      </div>
+      <div className='postCreatedTimeStamp'>
+        {moment(data.createdAt).format('MMMM Do YYYY')}
       </div>
     </div>
   )

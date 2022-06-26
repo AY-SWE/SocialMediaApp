@@ -11,6 +11,7 @@ const user = useSelector((state)=>state.authReducer.authData.user);
 const userExisting = user[Object.keys(user)[0]];
 const userId = user[Object.keys(user)[0]]._id;
 const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
+
   return (
     <div className="profileCard">
         <div className="profileImage">

@@ -31,20 +31,23 @@ const Chat = () => {
 
     useEffect(() => {
         socket.current = io("http://localhost:8800");
+    }, []);
+
+    useEffect(() => {
         socket.current.emit("new-user-add", userId);
         socket.current.on("get-user", (users) => {
           setOnlineUsers(users);
-          console.log(onlineUsers);       //works
+          console.log("onlineUsers below: ");
+          console.log(onlineUsers);   //works
         });
       }, [userAuthData]);
       
       useEffect(() => {           //for real-time receiving messages from socket server, should be after initialization of our sokcet's useEffect
-        console.log("receive-message in Chat.jsx outerrrr");
+        //console.log("receive-message in Chat.jsx outerrrr");
            
         if(sendMessage!== null){
-            console.log("receive-message in Chat.jsx outerrrrr sendMEssage is NOT NULL");
             socket.current.on("receive-message", (data)=>{
-                console.log("receiveMessage in Chat.jsx");
+                //console.log("receiveMessage in Chat.jsx");
                 setReceiveMessage(data);
             });
         }
